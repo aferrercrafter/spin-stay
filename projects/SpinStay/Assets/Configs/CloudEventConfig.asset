@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2294228d577f9c44dbde706a91679d62, type: 3}
+  m_Name: CloudEventConfig
+  m_EditorClassIdentifier: Assembly-CSharp::SpinStay.CloudEventConfig
+  minInterval: 10
+  maxInterval: 22
+  duration: 3.5
+  fadeIn: 0.5
+  fadeOut: 0.8
+  overlayAlpha: 0.55
+  overlayColor: {r: 0.82, g: 0.85, b: 0.88, a: 1}
+  balanceBarAlpha: 0.25
+  cloudScale: {x: 12, y: 3.5, z: 6}
+  cloudSpeed: 3
+  cloudColor: {r: 0.95, g: 0.95, b: 0.98, a: 0.85}

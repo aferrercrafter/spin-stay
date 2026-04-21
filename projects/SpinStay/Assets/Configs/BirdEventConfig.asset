@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de49bf00af99dd24083cf0decfc5ad69, type: 3}
+  m_Name: BirdEventConfig
+  m_EditorClassIdentifier: Assembly-CSharp::SpinStay.BirdEventConfig
+  minInterval: 6
+  maxInterval: 14
+  speed: 16
+  sidewaysRange: 14
+  verticalOffset: 1.4
+  scale: {x: 0.5, y: 0.35, z: 0.8}
+  color: {r: 0.15, g: 0.15, b: 0.18, a: 1}
+  impulseMin: 20
+  impulseMax: 45
+  hitRadius: 1.2

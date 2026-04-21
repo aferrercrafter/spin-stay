@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "unity-mcp-cli": "^0.66.0"
+  },
+  "scripts": {
+    "install-plugin:spinstay": "unity-mcp-cli install-plugin ./projects/SpinStay"
+  }
+}

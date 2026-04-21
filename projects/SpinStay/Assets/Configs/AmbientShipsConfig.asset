@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06e8ea1435e54284090d5197ad84b9c0, type: 3}
+  m_Name: AmbientShipsConfig
+  m_EditorClassIdentifier: Assembly-CSharp::SpinStay.AmbientShipsConfig
+  count: 6
+  minScale: {x: 5, y: 1.2, z: 2.5}
+  maxScale: {x: 14, y: 2.8, z: 4.5}
+  minSpeed: 0.6
+  maxSpeed: 3
+  sideOffsetMin: 45
+  sideOffsetMax: 75
+  waterY: -8.6
+  zSpread: 200
+  hullPalette:
+  - {r: 0.35, g: 0.28, b: 0.22, a: 1}
+  - {r: 0.24, g: 0.2, b: 0.17, a: 1}
+  - {r: 0.55, g: 0.42, b: 0.3, a: 1}
+  - {r: 0.65, g: 0.58, b: 0.48, a: 1}
+  - {r: 0.3, g: 0.35, b: 0.4, a: 1}
+  sailPalette:
+  - {r: 0.95, g: 0.92, b: 0.85, a: 1}
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 0.85, g: 0.75, b: 0.6, a: 1}
+  - {r: 0.8, g: 0.3, b: 0.25, a: 1}
+  - {r: 0.25, g: 0.35, b: 0.65, a: 1}
+  bobAmplitudeY: 0.18
+  bobFrequency: 0.45
