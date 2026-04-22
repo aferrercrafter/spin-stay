@@ -11,6 +11,10 @@ namespace SpinStay
         [Tooltip("Freeze the walker's balance/fall logic entirely. Keeps tilt at 0 and ignores roulette recovery / drift / bird impulses. Use when focusing on roulette tuning.")]
         [SerializeField] private bool disableBalance = false;
 
+        [Header("Balance mode")]
+        [Tooltip("If true, the walker has no organic lean — tilt only changes from picker recoveries and impulses. Falling can still happen via the FALL pick or by picking a side that pushes tilt past the fall angle.")]
+        [SerializeField] private bool staticBalance = false;
+
         [Header("Balance — limits")]
         [Tooltip("Max absolute tilt angle (degrees) before the walker starts the grace period.")]
         [SerializeField] private float fallAngle = 60f;
@@ -60,6 +64,7 @@ namespace SpinStay
         public bool IsRecovering => recoveryActive;
         public bool IsFallAnimating => fallAnimActive;
         public bool FallAnimationComplete => IsFallen && !fallAnimActive;
+        public bool StaticBalance { get => staticBalance; set => staticBalance = value; }
 
         public System.Action OnFell;
 
@@ -186,6 +191,22 @@ namespace SpinStay
                     AngularVelocity = 0f;
                 }
                 if (suppressPhysicsDuringRecovery) return;
+            }
+
+            // --- Static-balance mode: no organic lean. Tilt only changes via picks/impulses; the
+            //     recovery block above already handles "pick a bad side at the edge → fall". ---
+            if (staticBalance)
+            {
+                if (IsTeetering && Mathf.Abs(TiltAngle) < fallAngle * limitRecoveryThreshold)
+                {
+                    IsTeetering = false;
+                    graceTimer = 0f;
+                    GraceRemaining = 0f;
+                }
+                ApplyVisualTiltAndShake();
+                transform.position += transform.forward * forwardSpeed * dt;
+                DistanceTravelled += forwardSpeed * dt;
+                return;
             }
 
             // --- Constant lean: pick side from current tilt sign; re-roll when at (or near) zero. ---

@@ -305,6 +305,15 @@ namespace SpinStay
                 SwitchMode(mode == PickerMode.Roulette ? PickerMode.Pendulum : PickerMode.Roulette);
             }
 
+            if (walker != null)
+            {
+                string balLabel = walker.StaticBalance ? "Balance: Static  ▸  Organic" : "Balance: Organic  ▸  Static";
+                if (GUI.Button(new Rect(10, 42, 260, 28), balLabel, btnStyle))
+                {
+                    walker.StaticBalance = !walker.StaticBalance;
+                }
+            }
+
             // Stats — top-right.
             float w = 260f;
             float x = Screen.width - w - 12f;
