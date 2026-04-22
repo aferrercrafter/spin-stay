@@ -10,6 +10,7 @@ namespace SpinStay
         ResetBalance,  // smooth pull back to 0° — instant recovery
         SpeedUpWheel,  // boost wheel spin for wheelBoostDuration, decaying back to normal
         Fall,          // force-lose immediately
+        Nothing,       // no-op — pick happens, walker state untouched (used heavily by the pendulum gauge)
     }
 
     [Serializable]
