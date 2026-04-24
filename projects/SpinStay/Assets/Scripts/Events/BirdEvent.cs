@@ -16,6 +16,10 @@ namespace SpinStay
         bool dealtDamage;
         int signDir;
 
+        // Set by the spawner so the FBX's baked DCC rotation isn't stripped when we
+        // orient the bird along its flight path.
+        public Quaternion baseRotation = Quaternion.identity;
+
         public void Launch(BirdEventConfig cfg, TightropeWalker w)
         {
             config = cfg;
@@ -30,7 +34,9 @@ namespace SpinStay
             to   = wPos + fwd * ahead - side * config.sidewaysRange * signDir + Vector3.up * config.verticalOffset;
             totalTime = Mathf.Max(0.1f, Vector3.Distance(from, to) / Mathf.Max(0.1f, config.speed));
             transform.position = from;
-            transform.forward = (to - from).normalized;
+            // Compose flight-direction yaw with the prefab's authored rotation so the
+            // mesh's true forward axis (after the FBX bake) points along the path.
+            transform.rotation = Quaternion.LookRotation((to - from).normalized) * baseRotation;
         }
 
         void Update()

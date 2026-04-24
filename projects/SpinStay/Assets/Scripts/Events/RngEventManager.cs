@@ -68,6 +68,7 @@ namespace SpinStay
         void SpawnBird()
         {
             GameObject go;
+            Quaternion baseRot = Quaternion.identity;
             if (birdConfig.birdPrefabs != null && birdConfig.birdPrefabs.Length > 0)
             {
                 var prefab = birdConfig.birdPrefabs[Random.Range(0, birdConfig.birdPrefabs.Length)];
@@ -76,6 +77,7 @@ namespace SpinStay
                 float s = Random.Range(birdConfig.prefabScaleMin, birdConfig.prefabScaleMax);
                 // FBX prefab roots bake in a large scale (cm→m). Multiply, don't overwrite.
                 go.transform.localScale = prefab.transform.localScale * s;
+                baseRot = prefab.transform.rotation;
                 if (birdConfig.artMaterial != null)
                 {
                     foreach (var mr in go.GetComponentsInChildren<MeshRenderer>())
@@ -98,6 +100,7 @@ namespace SpinStay
                 go.transform.localScale = birdConfig.scale;
             }
             var bird = go.AddComponent<BirdEvent>();
+            bird.baseRotation = baseRot;
             bird.Launch(birdConfig, walker);
         }
 

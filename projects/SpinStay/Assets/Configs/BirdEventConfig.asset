@@ -20,7 +20,6 @@ MonoBehaviour:
   scale: {x: 0.5, y: 0.35, z: 0.8}
   color: {r: 0.15, g: 0.15, b: 0.18, a: 1}
   birdPrefabs:
-  - {fileID: 919132149155446097, guid: 6dda2c9d28a0627489f054136d6b07ea, type: 3}
   - {fileID: 919132149155446097, guid: 604438901cfb8674592bf2a947bbcef9, type: 3}
   artMaterial: {fileID: 2100000, guid: 94ac626071a16cc4ebb09fd55d2dc7cc, type: 2}
   prefabScaleMin: 0.4
