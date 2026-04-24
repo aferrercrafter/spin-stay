@@ -18,9 +18,18 @@ namespace SpinStay
         public float sidewaysRange = 14f;
         [Tooltip("Vertical offset from walker's head where the bird flies through.")]
         public float verticalOffset = 1.4f;
-        [Tooltip("Bird visual scale.")]
+        [Tooltip("Bird visual scale (primitive-cube fallback only).")]
         public Vector3 scale = new Vector3(0.5f, 0.35f, 0.8f);
         public Color color = new Color(0.15f, 0.15f, 0.18f);
+
+        [Header("Prefabs")]
+        [Tooltip("Optional bird prefabs. When set, a random prefab is instantiated per event instead of the primitive cube fallback.")]
+        public GameObject[] birdPrefabs;
+        [Tooltip("Optional material applied to every MeshRenderer on the spawned bird.")]
+        public Material artMaterial;
+        [Tooltip("Uniform scale range applied when using birdPrefabs.")]
+        public float prefabScaleMin = 0.9f;
+        public float prefabScaleMax = 1.4f;
 
         [Header("Impact")]
         [Tooltip("Angular velocity (°/s) applied to the walker when the bird passes. Sign is randomized.")]

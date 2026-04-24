@@ -67,16 +67,35 @@ namespace SpinStay
 
         void SpawnBird()
         {
-            var go = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            go.name = "Bird(Event)";
-            var col = go.GetComponent<Collider>(); if (col != null) Destroy(col);
-            var mr = go.GetComponent<MeshRenderer>();
-            if (mr != null)
+            GameObject go;
+            if (birdConfig.birdPrefabs != null && birdConfig.birdPrefabs.Length > 0)
             {
-                var mat = new Material(GetShader());
-                if (mat.HasProperty("_BaseColor")) mat.SetColor("_BaseColor", birdConfig.color);
-                if (mat.HasProperty("_Color")) mat.color = birdConfig.color;
-                mr.sharedMaterial = mat;
+                var prefab = birdConfig.birdPrefabs[Random.Range(0, birdConfig.birdPrefabs.Length)];
+                go = Instantiate(prefab);
+                go.name = prefab.name + "(Event)";
+                float s = Random.Range(birdConfig.prefabScaleMin, birdConfig.prefabScaleMax);
+                // FBX prefab roots bake in a large scale (cm→m). Multiply, don't overwrite.
+                go.transform.localScale = prefab.transform.localScale * s;
+                if (birdConfig.artMaterial != null)
+                {
+                    foreach (var mr in go.GetComponentsInChildren<MeshRenderer>())
+                        mr.sharedMaterial = birdConfig.artMaterial;
+                }
+            }
+            else
+            {
+                go = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                go.name = "Bird(Event)";
+                var col = go.GetComponent<Collider>(); if (col != null) Destroy(col);
+                var mr = go.GetComponent<MeshRenderer>();
+                if (mr != null)
+                {
+                    var mat = new Material(GetShader());
+                    if (mat.HasProperty("_BaseColor")) mat.SetColor("_BaseColor", birdConfig.color);
+                    if (mat.HasProperty("_Color")) mat.color = birdConfig.color;
+                    mr.sharedMaterial = mat;
+                }
+                go.transform.localScale = birdConfig.scale;
             }
             var bird = go.AddComponent<BirdEvent>();
             bird.Launch(birdConfig, walker);

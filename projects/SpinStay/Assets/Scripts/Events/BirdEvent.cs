@@ -31,7 +31,6 @@ namespace SpinStay
             totalTime = Mathf.Max(0.1f, Vector3.Distance(from, to) / Mathf.Max(0.1f, config.speed));
             transform.position = from;
             transform.forward = (to - from).normalized;
-            transform.localScale = config.scale;
         }
 
         void Update()

@@ -8,22 +8,38 @@ namespace SpinStay
         [Header("Count")]
         [Min(0)] public int count = 6;
 
-        [Header("Scale")]
+        [Header("Prefabs")]
+        [Tooltip("Optional ship prefabs. When set, a random prefab is instantiated per ship instead of the primitive cube+cube fallback.")]
+        public GameObject[] shipPrefabs;
+        [Tooltip("Optional material applied to every MeshRenderer on the spawned prefab. Use this when the FBX's embedded material is missing the texture.")]
+        public Material artMaterial;
+        [Tooltip("Uniform scale range applied when using shipPrefabs. Keeps art-authored proportions.")]
+        public float prefabScaleMin = 0.4f;
+        public float prefabScaleMax = 0.9f;
+        [Tooltip("Approximate prefab height (world units) used to seat it on the water plane and drive drift recycling.")]
+        public float prefabHeight = 4.7f;
+        [Tooltip("How far the keel sits below waterY. Small positive value so the boat looks partly submerged rather than floating.")]
+        public float prefabWaterlineOffset = 0.4f;
+
+        [Header("Primitive Fallback Scale")]
         public Vector3 minScale = new Vector3(5f, 1.2f, 2.5f);
         public Vector3 maxScale = new Vector3(14f, 2.8f, 4.5f);
 
         [Header("Speed")]
+        [Tooltip("Lateral drift speed (world units / second). Ships enter from one camera edge on the water plane and drift to the other.")]
         public float minSpeed = 0.6f;
         public float maxSpeed = 3.0f;
 
-        [Header("Placement")]
-        [Tooltip("Half-width of the channel (X distance from the rope where ships spawn).")]
-        public float sideOffsetMin = 45f;
-        public float sideOffsetMax = 75f;
-        [Tooltip("Water-level Y.")]
+        [Header("Spawn at camera edge")]
+        [Tooltip("Viewport Y range where a ship crosses the camera's left/right edges on the water plane. 0 = bottom of view (near camera), 1 = top (far horizon). Keep below ~0.9 so ships don't spawn at infinity.")]
+        [Range(0f, 1f)] public float viewportYMin = 0.25f;
+        [Range(0f, 1f)] public float viewportYMax = 0.85f;
+
+        [Tooltip("Extra world-X units beyond the viewport horizontal edge where a ship spawns and recycles. Bigger = ship is further offscreen before drifting in.")]
+        public float edgeBufferX = 6f;
+
+        [Tooltip("Water-level Y. Ships sit on this plane.")]
         public float waterY = -8.6f;
-        [Tooltip("How far ahead/behind along Z ships are initially spread.")]
-        public float zSpread = 200f;
 
         [Header("Colors")]
         public Color[] hullPalette = new[]
