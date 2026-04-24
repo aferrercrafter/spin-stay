@@ -41,6 +41,12 @@ namespace SpinStay
         [Tooltip("Water-level Y. Ships sit on this plane.")]
         public float waterY = -8.6f;
 
+        [Header("Stone avoidance")]
+        [Tooltip("If a ship's spawn Z lands inside this range it is pushed past the upper bound, so ships never share a Z-line with the static stone field.")]
+        public Vector2 stoneAvoidZRange = new Vector2(0f, 80f);
+        [Tooltip("Extra Z buffer added past the avoid range when a ship is pushed out.")]
+        public float stoneAvoidBuffer = 8f;
+
         [Header("Colors")]
         public Color[] hullPalette = new[]
         {

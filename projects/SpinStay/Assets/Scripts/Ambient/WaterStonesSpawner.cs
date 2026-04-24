@@ -41,6 +41,9 @@ namespace SpinStay
         void Awake()
         {
             if (rockPrefabs == null || rockPrefabs.Length == 0) return;
+            // If stones are already present (e.g. baked into the scene at edit time),
+            // skip runtime spawning so we don't duplicate them.
+            if (transform.childCount > 0) return;
             var rng = new System.Random(randomSeed);
 
             for (int i = 0; i < count; i++)

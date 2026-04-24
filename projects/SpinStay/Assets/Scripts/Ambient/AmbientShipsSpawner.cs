@@ -104,6 +104,13 @@ namespace SpinStay
             Vector3 edge = ViewportToWater(cam, new Vector3(vpX, vpY, 0f), cfg.waterY);
             edge.x += left ? -cfg.edgeBufferX : cfg.edgeBufferX;
             edge.y = cfg.waterY + shipHeight * 0.5f;
+            // Keep ships out of the static stone field's Z band — drifting along X means
+            // a Z that lands inside the band would otherwise sail straight through a stone.
+            if (cfg.stoneAvoidZRange.y > cfg.stoneAvoidZRange.x &&
+                edge.z >= cfg.stoneAvoidZRange.x && edge.z <= cfg.stoneAvoidZRange.y)
+            {
+                edge.z = cfg.stoneAvoidZRange.y + cfg.stoneAvoidBuffer;
+            }
             return edge;
         }
 

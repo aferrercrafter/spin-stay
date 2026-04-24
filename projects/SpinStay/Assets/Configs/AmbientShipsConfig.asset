@@ -28,6 +28,8 @@ MonoBehaviour:
   viewportYMax: 0.85
   edgeBufferX: 3
   waterY: -10
+  stoneAvoidZRange: {x: 10.574912, y: 73.62097}
+  stoneAvoidBuffer: 8
   hullPalette:
   - {r: 0.35, g: 0.28, b: 0.22, a: 1}
   - {r: 0.24, g: 0.2, b: 0.17, a: 1}
