@@ -15,11 +15,22 @@ MonoBehaviour:
   minInterval: 10
   maxInterval: 22
   duration: 3.5
-  fadeIn: 0.5
-  fadeOut: 0.8
+  fadeIn: 0.6
+  fadeOut: 0.9
   overlayAlpha: 0.55
   overlayColor: {r: 0.82, g: 0.85, b: 0.88, a: 1}
   balanceBarAlpha: 0.25
+  cloudPrefab: {fileID: 919132149155446097, guid: 25590e10938b94348b29ff7bb39508d5, type: 3}
+  cloudPrefabScale: 0.2
   cloudScale: {x: 12, y: 3.5, z: 6}
-  cloudSpeed: 3
+  cloudSpeed: 6
   cloudColor: {r: 0.95, g: 0.95, b: 0.98, a: 0.85}
+  hitRadius: 4
+  aheadOffset: 0
+  verticalOffset: 1.4
+  sidewaysRange: 10
+  explosionParticleCount: 28
+  explosionDuration: 1
+  explosionSpeed: 5
+  explosionPuffSize: 0.8
+  explosionColor: {r: 1, g: 1, b: 1, a: 1}
