@@ -126,7 +126,9 @@ namespace SpinStay
                 float dk = Mathf.Clamp01((fallAnimTimer - fallAnimationDuration * 0.2f) / Mathf.Max(0.0001f, fallAnimationDuration * 0.8f));
 
                 float tilt = Mathf.Lerp(fallStartTilt, fallDirSign * 90f, Mathf.SmoothStep(0f, 1f, tk));
-                tiltRoot.localRotation = Quaternion.Euler(0f, 0f, tilt);
+                // Negated so positive TiltAngle tips the walker to screen-right (matches the
+                // roulette/pendulum convention where RIGHT has tiltDelta = +20).
+                tiltRoot.localRotation = Quaternion.Euler(0f, 0f, -tilt);
 
                 float y = Mathf.Lerp(fallStartPos.y, fallWaterY, Mathf.SmoothStep(0f, 1f, dk));
                 // Sideways nudge so the body arcs as it falls.
@@ -249,7 +251,9 @@ namespace SpinStay
 
         void ApplyVisualTiltAndShake()
         {
-            tiltRoot.localRotation = Quaternion.Euler(0f, 0f, TiltAngle);
+            // Negated so positive TiltAngle tips the walker to screen-right. Keeps the
+            // roulette's RIGHT (tiltDelta +20) pushing visually right and LEFT (-20) pushing left.
+            tiltRoot.localRotation = Quaternion.Euler(0f, 0f, -TiltAngle);
 
             float absN = Mathf.Abs(NormalizedTilt);
             float intensity = Mathf.InverseLerp(shakeThreshold, 1f, absN);

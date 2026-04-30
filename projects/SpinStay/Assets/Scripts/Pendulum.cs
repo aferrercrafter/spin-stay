@@ -50,6 +50,9 @@ namespace SpinStay
         public RouletteOption[] Options => config != null ? config.options : null;
         public event Action<RouletteOption, int> OnStopped;
 
+        /// <summary>Runtime-only multiplier applied to the swing speed. Does not mutate the config asset.</summary>
+        public float SpeedMultiplier { get; set; } = 1f;
+
         RawImage highlightImage;
         Texture2D arcTexture;
         Texture2D[] segmentHighlightTextures;
@@ -413,6 +416,7 @@ namespace SpinStay
 
             if (State == PendulumState.Swinging)
             {
+                phaseRate = baselinePhaseRate * Mathf.Max(0f, SpeedMultiplier);
                 phase += phaseRate * dt;
                 CurrentAngle = Mathf.Sin(phase * Mathf.Deg2Rad) * maxAngle;
                 ApplyNeedle();
@@ -513,7 +517,7 @@ namespace SpinStay
         public void RestartSpin()
         {
             State = PendulumState.Swinging;
-            phaseRate = baselinePhaseRate;
+            phaseRate = baselinePhaseRate * Mathf.Max(0f, SpeedMultiplier);
         }
 
         void FinalizeStop()

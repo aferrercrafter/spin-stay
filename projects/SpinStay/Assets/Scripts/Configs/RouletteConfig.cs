@@ -40,8 +40,8 @@ namespace SpinStay
         [Header("Options")]
         public RouletteOption[] options = new RouletteOption[]
         {
-            new RouletteOption { label = "LEFT",  tiltDelta = -20f, weightPercent = 50f, color = new Color(0.70f, 0.10f, 0.12f) },
-            new RouletteOption { label = "RIGHT", tiltDelta =  20f, weightPercent = 50f, color = new Color(0.10f, 0.10f, 0.10f) },
+            new RouletteOption { label = "LEFT",  tiltDelta = -20f, weightPercent = 50f, color = new Color(0.80f, 0.10f, 0.14f) },
+            new RouletteOption { label = "RIGHT", tiltDelta =  20f, weightPercent = 50f, color = new Color(0.07f, 0.07f, 0.09f) },
         };
 
         [Header("Spin")]
@@ -51,9 +51,9 @@ namespace SpinStay
         [Min(0f)] public float postStopSpinTime = 1.0f;
 
         [Header("Visuals")]
-        public Color rimColor     = new Color(0.85f, 0.72f, 0.25f);
-        public Color dividerColor = new Color(0.95f, 0.85f, 0.45f);
-        public Color centerColor  = new Color(0.05f, 0.05f, 0.05f);
+        public Color rimColor     = new Color(0.92f, 0.72f, 0.20f); // brass/gold rim
+        public Color dividerColor = new Color(0.98f, 0.88f, 0.50f); // bright gold dividers
+        public Color centerColor  = new Color(0.12f, 0.04f, 0.05f); // deep mahogany hub
         [Min(64)] public int textureSize = 512;
         [Range(0.2f, 0.9f)] public float labelRadiusRatio = 0.60f;
         [Min(8)] public int labelFontSize = 24;

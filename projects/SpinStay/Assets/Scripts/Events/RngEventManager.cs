@@ -21,6 +21,29 @@ namespace SpinStay
         float birdTimer;
         float cloudTimer;
 
+        // Manual-trigger pending delays. >0 = counting down toward firing.
+        float manualBirdTimer  = -1f;
+        float manualCloudTimer = -1f;
+
+        public bool BirdTriggerPending  => manualBirdTimer  > 0f;
+        public bool CloudTriggerPending => manualCloudTimer > 0f;
+        public float BirdTriggerRemaining  => Mathf.Max(0f, manualBirdTimer);
+        public float CloudTriggerRemaining => Mathf.Max(0f, manualCloudTimer);
+
+        /// <summary>Queue an event-bird spawn after <paramref name="delaySeconds"/>. Used by the manual trigger button.</summary>
+        public void TriggerBirdNow(float delaySeconds = 1f)
+        {
+            if (birdConfig == null) return;
+            manualBirdTimer = Mathf.Max(0.001f, delaySeconds);
+        }
+
+        /// <summary>Queue an event-cloud spawn after <paramref name="delaySeconds"/>. Used by the manual trigger button.</summary>
+        public void TriggerCloudNow(float delaySeconds = 1f)
+        {
+            if (cloudConfig == null) return;
+            manualCloudTimer = Mathf.Max(0.001f, delaySeconds);
+        }
+
         void Start()
         {
             ScheduleBird();
@@ -49,6 +72,25 @@ namespace SpinStay
                 {
                     SpawnCloud();
                     ScheduleCloud();
+                }
+            }
+
+            if (manualBirdTimer > 0f)
+            {
+                manualBirdTimer -= Time.deltaTime;
+                if (manualBirdTimer <= 0f)
+                {
+                    manualBirdTimer = -1f;
+                    if (birdConfig != null) SpawnBird();
+                }
+            }
+            if (manualCloudTimer > 0f)
+            {
+                manualCloudTimer -= Time.deltaTime;
+                if (manualCloudTimer <= 0f)
+                {
+                    manualCloudTimer = -1f;
+                    if (cloudConfig != null) SpawnCloud();
                 }
             }
         }

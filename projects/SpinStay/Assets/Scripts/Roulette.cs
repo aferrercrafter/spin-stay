@@ -49,6 +49,9 @@ namespace SpinStay
         public RouletteConfig Config => config;
         public RouletteOption[] Options => config != null ? config.options : null;
 
+        /// <summary>Runtime-only multiplier applied to the configured spin speed. Does not mutate the config asset.</summary>
+        public float SpeedMultiplier { get; set; } = 1f;
+
         public event Action<RouletteOption, int> OnStopped;
 
         float stopElapsed;
@@ -471,8 +474,12 @@ namespace SpinStay
             {
                 boostElapsed += dt;
                 float bk = Mathf.Clamp01(boostElapsed / boostDuration);
-                CurrentSpeed = Mathf.Lerp(boostFromSpeed, config.spinSpeed, bk);
+                CurrentSpeed = Mathf.Lerp(boostFromSpeed, config.spinSpeed, bk) * Mathf.Max(0f, SpeedMultiplier);
                 if (bk >= 1f) boostActive = false;
+            }
+            else if (State == RouletteState.Spinning)
+            {
+                CurrentSpeed = config.spinSpeed * Mathf.Max(0f, SpeedMultiplier);
             }
 
             if (CurrentSpeed > 0f)
@@ -533,7 +540,7 @@ namespace SpinStay
         public void RestartSpin()
         {
             State = RouletteState.Spinning;
-            if (config != null) CurrentSpeed = config.spinSpeed;
+            if (config != null) CurrentSpeed = config.spinSpeed * Mathf.Max(0f, SpeedMultiplier);
         }
 
         public int GetCurrentSegmentIndex()

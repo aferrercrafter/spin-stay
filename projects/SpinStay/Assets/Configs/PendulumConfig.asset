@@ -19,96 +19,96 @@ MonoBehaviour:
     wheelSpeedMultiplier: 2.5
     wheelBoostDuration: 3.5
     weightPercent: 8
-    color: {r: 0.95, g: 0.82, b: 0.2, a: 1}
+    color: {r: 0.8, g: 0.1, b: 0.14, a: 1}
   - label: nothing
     action: 4
     tiltDelta: 0
     wheelSpeedMultiplier: 2.5
     wheelBoostDuration: 3.5
     weightPercent: 8
-    color: {r: 0.95, g: 0.55, b: 0.1, a: 1}
+    color: {r: 0.07, g: 0.07, b: 0.09, a: 1}
   - label: nothing
     action: 4
     tiltDelta: 0
     wheelSpeedMultiplier: 2.5
     wheelBoostDuration: 3.5
     weightPercent: 7
-    color: {r: 0.95, g: 0.82, b: 0.2, a: 1}
+    color: {r: 0.8, g: 0.1, b: 0.14, a: 1}
   - label: LEFT
     action: 0
     tiltDelta: -20
     wheelSpeedMultiplier: 2.5
     wheelBoostDuration: 3.5
     weightPercent: 8
-    color: {r: 0.25, g: 0.7, b: 0.25, a: 1}
+    color: {r: 0.07, g: 0.48, b: 0.22, a: 1}
   - label: nothing
     action: 4
     tiltDelta: 0
     wheelSpeedMultiplier: 2.5
     wheelBoostDuration: 3.5
     weightPercent: 7
-    color: {r: 0.95, g: 0.82, b: 0.2, a: 1}
+    color: {r: 0.8, g: 0.1, b: 0.14, a: 1}
   - label: nothing
     action: 4
     tiltDelta: 0
     wheelSpeedMultiplier: 2.5
     wheelBoostDuration: 3.5
     weightPercent: 8
-    color: {r: 0.95, g: 0.55, b: 0.1, a: 1}
+    color: {r: 0.07, g: 0.07, b: 0.09, a: 1}
   - label: FALL
     action: 3
     tiltDelta: 0
     wheelSpeedMultiplier: 2.5
     wheelBoostDuration: 3.5
     weightPercent: 8
-    color: {r: 0.8, g: 0.12, b: 0.12, a: 1}
+    color: {r: 0.42, g: 0.1, b: 0.5, a: 1}
   - label: nothing
     action: 4
     tiltDelta: 0
     wheelSpeedMultiplier: 2.5
     wheelBoostDuration: 3.5
     weightPercent: 8
-    color: {r: 0.95, g: 0.55, b: 0.1, a: 1}
+    color: {r: 0.07, g: 0.07, b: 0.09, a: 1}
   - label: nothing
     action: 4
     tiltDelta: 0
     wheelSpeedMultiplier: 2.5
     wheelBoostDuration: 3.5
     weightPercent: 7
-    color: {r: 0.95, g: 0.82, b: 0.2, a: 1}
+    color: {r: 0.8, g: 0.1, b: 0.14, a: 1}
   - label: RIGHT
     action: 0
     tiltDelta: 20
     wheelSpeedMultiplier: 2.5
     wheelBoostDuration: 3.5
     weightPercent: 8
-    color: {r: 0.25, g: 0.7, b: 0.25, a: 1}
+    color: {r: 0.07, g: 0.48, b: 0.22, a: 1}
   - label: nothing
     action: 4
     tiltDelta: 0
     wheelSpeedMultiplier: 2.5
     wheelBoostDuration: 3.5
     weightPercent: 7
-    color: {r: 0.95, g: 0.82, b: 0.2, a: 1}
+    color: {r: 0.8, g: 0.1, b: 0.14, a: 1}
   - label: nothing
     action: 4
     tiltDelta: 0
     wheelSpeedMultiplier: 2.5
     wheelBoostDuration: 3.5
     weightPercent: 8
-    color: {r: 0.95, g: 0.55, b: 0.1, a: 1}
+    color: {r: 0.07, g: 0.07, b: 0.09, a: 1}
   - label: nothing
     action: 4
     tiltDelta: 0
     wheelSpeedMultiplier: 2.5
     wheelBoostDuration: 3.5
     weightPercent: 8
-    color: {r: 0.95, g: 0.82, b: 0.2, a: 1}
+    color: {r: 0.8, g: 0.1, b: 0.14, a: 1}
   spinSpeed: 200
   postStopSpinTime: 0.4
-  rimColor: {r: 0.85, g: 0.72, b: 0.25, a: 1}
-  dividerColor: {r: 0.15, g: 0.1, b: 0.05, a: 1}
-  centerColor: {r: 0.05, g: 0.05, b: 0.05, a: 1}
+  rimColor: {r: 0.92, g: 0.72, b: 0.2, a: 1}
+  dividerColor: {r: 0.98, g: 0.88, b: 0.5, a: 1}
+  centerColor: {r: 0.12, g: 0.04, b: 0.05, a: 1}
   textureSize: 512
   labelRadiusRatio: 0.7
   labelFontSize: 22

@@ -10,6 +10,16 @@ namespace SpinStay
         [SerializeField] private TightropeWalker walker;
         [SerializeField] private Roulette roulette;
         [SerializeField] private Pendulum pendulum;
+        [SerializeField] private BalanceBarUI balanceBar;
+        [SerializeField] private ColorPaletteManager paletteManager;
+        [SerializeField] private RngEventManager rngEventManager;
+
+        [Header("Runtime speed (debug)")]
+        [Tooltip("Runtime multiplier applied to the active picker's spin/swing speed. Live-tweakable from the on-screen slider.")]
+        [Range(0.1f, 4f)] [SerializeField] private float rouletteSpeedMultiplier = 1f;
+        [Range(0.1f, 4f)] [SerializeField] private float pendulumSpeedMultiplier = 1f;
+        [Tooltip("Delay between pressing a manual event button and the event actually firing.")]
+        [SerializeField, Min(0f)] private float manualEventDelay = 1f;
 
         [Header("Picker mode")]
         [SerializeField] private PickerMode mode = PickerMode.Roulette;
@@ -46,6 +56,14 @@ namespace SpinStay
             if (roulette == null) roulette = FindAnyObjectByType<Roulette>();
             if (pendulum == null) pendulum = FindAnyObjectByType<Pendulum>();
             if (pendulum == null) pendulum = AutoBuildPendulum();
+            if (balanceBar == null) balanceBar = FindAnyObjectByType<BalanceBarUI>();
+            if (rngEventManager == null) rngEventManager = FindAnyObjectByType<RngEventManager>();
+
+            if (paletteManager == null) paletteManager = GetComponent<ColorPaletteManager>();
+            if (paletteManager == null) paletteManager = gameObject.AddComponent<ColorPaletteManager>();
+            var rouletteCfg = roulette != null ? roulette.Config : null;
+            var pendulumCfg = pendulumConfig != null ? pendulumConfig : rouletteCfg;
+            paletteManager.Configure(rouletteCfg, pendulumCfg, roulette, pendulum, balanceBar);
         }
 
         Pendulum AutoBuildPendulum()
@@ -146,6 +164,10 @@ namespace SpinStay
 
         void Update()
         {
+            // Push runtime speed multipliers to the active pickers each frame so slider tweaks land immediately.
+            if (roulette != null) roulette.SpeedMultiplier = rouletteSpeedMultiplier;
+            if (pendulum != null) pendulum.SpeedMultiplier = pendulumSpeedMultiplier;
+
             var kb = Keyboard.current;
             var mouse = Mouse.current;
             bool stopPressed =
@@ -312,6 +334,41 @@ namespace SpinStay
                 {
                     walker.StaticBalance = !walker.StaticBalance;
                 }
+            }
+
+            if (paletteManager != null)
+            {
+                string palLabel = string.Format("Palette: {0}  ▸  {1}",
+                    paletteManager.CurrentPaletteName, paletteManager.NextPaletteName);
+                if (GUI.Button(new Rect(10, 74, 260, 28), palLabel, btnStyle))
+                {
+                    paletteManager.CycleNext();
+                }
+            }
+
+            // Speed sliders for the two pickers. Live-tweakable, does not mutate the SO config.
+            var lblStyle = new GUIStyle(GUI.skin.label) { fontSize = 12, alignment = TextAnchor.MiddleLeft };
+            GUI.Label(new Rect(10, 108, 130, 18), $"Roulette ×{rouletteSpeedMultiplier:F2}", lblStyle);
+            rouletteSpeedMultiplier = GUI.HorizontalSlider(new Rect(140, 114, 130, 18), rouletteSpeedMultiplier, 0.1f, 4f);
+            GUI.Label(new Rect(10, 130, 130, 18), $"Pendulum ×{pendulumSpeedMultiplier:F2}", lblStyle);
+            pendulumSpeedMultiplier = GUI.HorizontalSlider(new Rect(140, 136, 130, 18), pendulumSpeedMultiplier, 0.1f, 4f);
+
+            // Manual event triggers. Disabled while a pending trigger is counting down.
+            if (rngEventManager != null)
+            {
+                var smallBtn = new GUIStyle(GUI.skin.button) { fontSize = 12, alignment = TextAnchor.MiddleCenter };
+                bool birdPending  = rngEventManager.BirdTriggerPending;
+                bool cloudPending = rngEventManager.CloudTriggerPending;
+                string birdLabel  = birdPending  ? $"Bird in {rngEventManager.BirdTriggerRemaining:F1}s"   : "Trigger Bird";
+                string cloudLabel = cloudPending ? $"Cloud in {rngEventManager.CloudTriggerRemaining:F1}s" : "Trigger Cloud";
+
+                GUI.enabled = !birdPending;
+                if (GUI.Button(new Rect(10, 158, 125, 26), birdLabel, smallBtn))
+                    rngEventManager.TriggerBirdNow(manualEventDelay);
+                GUI.enabled = !cloudPending;
+                if (GUI.Button(new Rect(145, 158, 125, 26), cloudLabel, smallBtn))
+                    rngEventManager.TriggerCloudNow(manualEventDelay);
+                GUI.enabled = true;
             }
 
             // Stats — top-right.

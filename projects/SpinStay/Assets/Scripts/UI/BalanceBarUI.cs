@@ -31,9 +31,9 @@ namespace SpinStay
         public float shakeFrequency = 24f;
 
         [Header("Colors")]
-        public Color colorEdge    = new Color(0.95f, 0.25f, 0.20f);
-        public Color colorMid     = new Color(0.95f, 0.80f, 0.25f);
-        public Color colorCenter  = new Color(0.25f, 0.85f, 0.35f);
+        public Color colorEdge    = new Color(0.80f, 0.10f, 0.14f); // roulette red
+        public Color colorMid     = new Color(0.95f, 0.77f, 0.18f); // casino gold
+        public Color colorCenter  = new Color(0.07f, 0.48f, 0.22f); // felt green
 
         Vector2 shakeBasePos;
         float barAlphaMul = 1f;
@@ -49,15 +49,26 @@ namespace SpinStay
 
         public void SetAlphaMultiplier(float m) => barAlphaMul = Mathf.Clamp01(m);
 
+        public void ApplyColors(Color edge, Color mid, Color center)
+        {
+            colorEdge   = edge;
+            colorMid    = mid;
+            colorCenter = center;
+            if (barImage == null) return;
+            var prev = barImage.texture as Texture2D;
+            barImage.texture = CreateGradientTexture(256);
+            if (prev != null) Destroy(prev);
+        }
+
         void LateUpdate()
         {
             if (walker == null || barRect == null || cursor == null) return;
 
-            // Walker's local Z tilt is CCW positive. Viewed from a camera placed behind the walker
-            // (third-person), positive rotation tips the body toward screen-left, so by default we
-            // flip the sign so the cursor tracks the visible lean direction.
+            // Positive TiltAngle now tips the walker to screen-right (the walker itself negates
+            // the sign when applying it to its transform). The cursor follows that convention by
+            // default; flip matchVisualTilt only if you reorient the camera to face the walker.
             float n = walker.NormalizedTilt; // -1..1
-            float dirSign = matchVisualTilt ? -1f : 1f;
+            float dirSign = matchVisualTilt ? 1f : -1f;
             float width = barRect.rect.width;
             cursor.anchoredPosition = new Vector2(n * dirSign * width * 0.5f, cursor.anchoredPosition.y);
 
