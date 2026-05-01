@@ -51,6 +51,8 @@ namespace SpinStay
 
         [Header("Visual")]
         [SerializeField] private Transform tiltRoot;
+        [Tooltip("Optional. Disabled when the walker falls so the procedural fall animation plays from a frozen pose, re-enabled on reset.")]
+        [SerializeField] private Animator walkAnimator;
 
         public float TiltAngle { get; private set; }
         public float AngularVelocity { get; private set; }
@@ -283,6 +285,8 @@ namespace SpinStay
             fallDirSign = TiltAngle >= 0f ? 1 : -1;
             fallStartPos = transform.position;
 
+            if (walkAnimator != null) walkAnimator.enabled = false;
+
             OnFell?.Invoke();
         }
 
@@ -342,6 +346,7 @@ namespace SpinStay
             fallAnimTimer = 0f;
             tiltRoot.localRotation = Quaternion.identity;
             tiltRoot.localPosition = Vector3.zero;
+            if (walkAnimator != null) walkAnimator.enabled = true;
         }
     }
 }
